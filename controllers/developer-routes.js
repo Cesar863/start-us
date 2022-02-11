@@ -29,7 +29,7 @@ router.get('/', withAuth, (req, res) => {
     })
     .then(dbServiceData => {
         const services = dbServiceData.map(post => post.get({ plain: true }));
-        res.render('developer-dashboard', { services, loggedIn: true });
+        res.render('developer-dashboard', { services, loggedIn: true, developer_type:req.session.account_type });
     })
     .catch(err => {
         console.log(err);

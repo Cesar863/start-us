@@ -85,16 +85,32 @@ router.get('/service/:id', (req, res) => {
             }
         ]
     })
+    // .then(dbServiceData => {
+    //     if (!dbServiceData) {
+    //         res.status(404).json({ message: 'No post found with that ID' });
+    //         return;
+    //     }
+    //     const service = dbServiceData.get({ plain: true });
+    //     res.render('single-service', {
+    //         post,
+    //         loggedIn: req.session.loggedIn
+    //     });
+    // })
     .then(dbServiceData => {
-        if (!dbServiceData) {
-            res.status(404).json({ message: 'No post found with that ID' });
-            return;
+        const services = dbServiceData.map(post => post.get({ plain: true }));
+        if (req.session.account_type === "member"){
+            res.render('homepage', {
+                services,
+                loggedIn: req.session.loggedIn,
+                member_type: req.session.account_type
+            });
+        }else{
+            res.render('homepage', {
+                services,
+                loggedIn: req.session.loggedIn,
+                developer_type: req.session.account_type
+            });
         }
-        const service = dbServiceData.get({ plain: true });
-        res.render('single-service', {
-            post,
-            loggedIn: req.session.loggedIn
-        });
     })
     .catch(err => {
         console.log(err);

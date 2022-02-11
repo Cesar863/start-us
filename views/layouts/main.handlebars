@@ -23,20 +23,27 @@
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     </a>
-                </div>    
-                <!-- navbar links -->
+                </div>   
+
+              <!-- navbar links -->
                 <div class="navbar-menu" id="navMenu"></div>
-                    {{#if loggedIn }} <!-- create condition for dev and member dashboard -->
-                    <a href="/user/" class="navbar-item">Home</a>
+                    {{#if loggedIn}} <!-- create condition for dev and member dashboard -->
+                    <a href="/" class="navbar-item">Home</a>
+                    {{#if member_type}}
+                    <a href="/member/" class="member navbar-item">Dashboard</a>
+                    {{/if}}
+                    {{#if developer_type}}
+                    <a href="/developer/" class="developer navbar-item">Dashboard</a>
+                    {{/if}}
                     <a id="logout" href="/" class="navbar-item">Logout</a>
                     {{else}}
-                    <a href="/" class="navbar-item">Home</a> 
-                    <a href="/" class="navbar-item">How it Works</a> 
-                    <a href="/login/" class="navbar-item">Login</a> 
+                    <a href="/" class="navbar-item">Home</a>
+                    <a href="/" class="navbar-item">How it Works</a>
+                    <a href="/login/" class="navbar-item">Login</a>
                     {{/if}}
                 </div>
             </nav>
-
+            
         </header>
         <main>
             {{{ body }}}
