@@ -22,10 +22,16 @@ router.get('/', (req, res) => {
     })
     .then(dbServiceData => {
         const services = dbServiceData.map(post => post.get({ plain: true }));
-        res.render('homepage', {
+        
+        const  arg = {
             services,
             loggedIn: req.session.loggedIn
-        });
+        }
+        arg[req.session.account_type+"_type"]= req.session.account_type
+        console.log ("=================================")
+        console.log (req.session.account_type)
+        console.log ("=================================")
+        res.render('homepage', arg)
     })
     .catch(err => {
         console.log(err);
